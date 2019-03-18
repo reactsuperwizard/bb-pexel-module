@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Beaver Builder Custom Modules
- * Plugin URI: http://www.wpbeaverbuilder.com
- * Description: An example plugin for creating custom builder modules.
- * Version: 2.0
- * Author: The Beaver Builder Team
- * Author URI: http://www.wpbeaverbuilder.com
+ * Plugin Name: Beaver Builder Pexels Photo
+ * Plugin URI: mindsparkwebdesign.com
+ * Description: Plugin for adding pexels photo.
+ * Version: 1.0
+ * Author: rsm0128
+ * Author URI: mindsparkwebdesign.com
  */
-define( 'FL_MODULE_EXAMPLES_DIR', plugin_dir_path( __FILE__ ) );
-define( 'FL_MODULE_EXAMPLES_URL', plugins_url( '/', __FILE__ ) );
+define( 'FL_MODULE_PEXELS_DIR', plugin_dir_path( __FILE__ ) );
+define( 'FL_MODULE_PEXELS_URL', plugins_url( '/', __FILE__ ) );
 
-require_once FL_MODULE_EXAMPLES_DIR . 'classes/class-fl-custom-modules-example-loader.php';
+require_once FL_MODULE_PEXELS_DIR . 'classes/class-fl-pexels-loader.php';

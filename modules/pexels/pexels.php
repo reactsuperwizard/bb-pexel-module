@@ -1,27 +1,19 @@
 <?php
 
 /**
- * This is an example module with only the basic
- * setup necessary to get it working.
- *
- * @class FLBasicExampleModule
+ * This is Pexels module
+ * @class FLPexelsModule
  */
-class FLBasicExampleModule extends FLBuilderModule {
-
-    /** 
-     * Constructor function for the module. You must pass the
-     * name, description, dir and url in an array to the parent class.
-     *
-     * @method __construct
-     */  
+class FLPexelsModule extends FLBuilderModule {
+ 
     public function __construct()
     {
         parent::__construct(array(
-            'name'          => __('Basic Example', 'fl-builder'),
-            'description'   => __('An basic example for coding new modules.', 'fl-builder'),
-            'category'		=> __('Example Modules', 'fl-builder'),
-            'dir'           => FL_MODULE_EXAMPLES_DIR . 'modules/basic-example/',
-            'url'           => FL_MODULE_EXAMPLES_URL . 'modules/basic-example/',
+            'name'          => __('Pexels Photo', 'fl-builder'),
+            'description'   => __('Pexels Photo Picker.', 'fl-builder'),
+            'category'		=> __('Media', 'fl-builder'),
+            'dir'           => FL_MODULE_PEXELS_DIR . 'modules/pexels/',
+            'url'           => FL_MODULE_PEXELS_URL . 'modules/pexels/',
             'editor_export' => true, // Defaults to true and can be omitted.
             'enabled'       => true, // Defaults to true and can be omitted.
         ));
@@ -31,12 +23,12 @@ class FLBasicExampleModule extends FLBuilderModule {
 /**
  * Register the module and its form settings.
  */
-FLBuilder::register_module('FLBasicExampleModule', array(
+FLBuilder::register_module('FLPexelsModule', array(
     'general'       => array( // Tab
         'title'         => __('General', 'fl-builder'), // Tab title
         'sections'      => array( // Tab Sections
             'general'       => array( // Section
-                'title'         => __('Section Title', 'fl-builder'), // Section Title
+                'title'         => __('Pexels Photo Fields', 'fl-builder'), // Section Title
                 'fields'        => array( // Section Fields
                     'pexels_width'     => array(
                         'type'          => 'text',
@@ -80,7 +72,7 @@ FLBuilder::register_module('FLBasicExampleModule', array(
                         )
                     ),
                     'pexels_src' => array(
-                        'type'          => 'my-custom-field',
+                        'type'          => 'pexel-picker',
                         'label'         => __('Pexels', 'fl-builder'),
                         'default'       => '',
                         'preview'         => array(

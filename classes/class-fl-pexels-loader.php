@@ -4,7 +4,7 @@
  * A class that handles loading custom modules and custom
  * fields if the builder is installed and activated.
  */
-class FL_Custom_Modules_Example_Loader {
+class FL_Pexels_Loader {
 	
 	/**
 	 * Initializes the class once all plugins have loaded.
@@ -29,23 +29,22 @@ class FL_Custom_Modules_Example_Loader {
 		
 		// Enqueue custom field assets.
 		add_action( 'init', __CLASS__ . '::enqueue_field_assets' );
-		add_action( 'wp_ajax_wppx_search', __CLASS__ . '::wppx_search_ajax' );
-		add_action( 'wp_ajax_nopriv_wppx_search', __CLASS__ . '::wppx_search_ajax' );
+		add_action( 'wp_ajax_bbpx_search', __CLASS__ . '::bbpx_search_ajax' );
+		add_action( 'wp_ajax_nopriv_bbpx_search', __CLASS__ . '::bbpx_search_ajax' );
 	}
 	
 	/**
 	 * Loads our custom modules.
 	 */
 	static public function load_modules() {
-		require_once FL_MODULE_EXAMPLES_DIR . 'modules/basic-example/basic-example.php';
-		// require_once FL_MODULE_EXAMPLES_DIR . 'modules/example/example.php';
+		require_once FL_MODULE_PEXELS_DIR . 'modules/pexels/pexels.php';
 	}
 	
 	/**
 	 * Registers our custom fields.
 	 */
 	static public function register_fields( $fields ) {
-		$fields['my-custom-field'] = FL_MODULE_EXAMPLES_DIR . 'fields/my-custom-field.php';
+		$fields['pexel-picker'] = FL_MODULE_PEXELS_DIR . 'fields/pexel-picker.php';
 		return $fields;
 	}
 	
@@ -57,23 +56,20 @@ class FL_Custom_Modules_Example_Loader {
 			return;
 		}*/
 		wp_enqueue_style( 'dashicons' );
-		wp_enqueue_style( 'my-custom-fields', FL_MODULE_EXAMPLES_URL . 'assets/css/fields.css', array(), '' );
-		wp_enqueue_script( 'my-custom-fields', FL_MODULE_EXAMPLES_URL . 'assets/js/fields.js', array(), '', true );
-		wp_localize_script( 'my-custom-fields', 'wppx_vars', array(
-				'wppx_username'  => get_option( 'wppx_username' ) ? get_option( 'wppx_username' ) : 'baby2j',
-				'wppx_key'       => get_option( 'wppx_key' ) ? get_option( 'wppx_key' ) : '1485725-fcbfa6badf33d350b5eb4670a',
-				'wppx_ajax_url'  => admin_url( 'admin-ajax.php' ),
-				'wppx_media_url' => admin_url( 'upload.php' ),
-				'wppx_nonce'     => wp_create_nonce( 'wppx_nonce' )
+		wp_enqueue_style( 'pexel-pickers', FL_MODULE_PEXELS_URL . 'assets/css/fields.css', array(), '' );
+		wp_enqueue_script( 'pexel-pickers', FL_MODULE_PEXELS_URL . 'assets/js/fields.js', array(), '', true );
+		wp_localize_script( 'pexel-pickers', 'bbpx_vars', array(
+				'bbpx_ajax_url'  => admin_url( 'admin-ajax.php' ),
+				'bbpx_nonce'     => wp_create_nonce( 'bbpx_nonce' )
 			) );
 	}
 
 	/**
 	 * Search Photo Ajax Request Handling Code
 	 */
-	static public function wppx_search_ajax() {
-		if ( ! isset( $_POST['wppx_nonce'] ) || ! wp_verify_nonce( $_POST['wppx_nonce'], 'wppx_nonce' ) ) {
-			die( esc_html__( 'Permissions check failed', 'wppx' ) );
+	static public function bbpx_search_ajax() {
+		if ( ! isset( $_POST['bbpx_nonce'] ) || ! wp_verify_nonce( $_POST['bbpx_nonce'], 'bbpx_nonce' ) ) {
+			die( esc_html__( 'Permissions check failed', 'bbpx' ) );
 		}
 		$ch   = curl_init();
 		$page = isset( $_POST['page'] ) ? $_POST['page'] : 1;
@@ -93,4 +89,4 @@ class FL_Custom_Modules_Example_Loader {
 	}
 }
 
-FL_Custom_Modules_Example_Loader::init();
+FL_Pexels_Loader::init();

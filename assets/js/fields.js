@@ -1,73 +1,73 @@
-var wppx_imgs = {};
-var wppx_selected = new Array();
-var wppx_opened = false;
-var wppx_current = '';
-var wppx_width_small = '630px';
-var wppx_width_big = '930px';
-var wppx_height = '580px';
+var bbpx_imgs = {};
+var bbpx_selected = new Array();
+var bbpx_opened = false;
+var bbpx_current = '';
+var bbpx_width_small = '630px';
+var bbpx_width_big = '930px';
+var bbpx_height = '580px';
 
 jQuery( document ).ready( function( $ ) {
 
-	$( 'body' ).on( 'click touch', '#wppx_search', function() {
-		wppx_search( 1 );
+	$( 'body' ).on( 'click touch', '#bbpx_search', function() {
+		bbpx_search( 1 );
 	} );
 
-	$( 'body' ).on( 'change', '#wppx_page_select', function() {
-		wppx_search( $( this ).val() );
+	$( 'body' ).on( 'change', '#bbpx_page_select', function() {
+		bbpx_search( $( this ).val() );
 	} );
 
-	$( 'body' ).on( 'click touch', '.wppx_item_overlay', function( event ) {
-		console.log('wppx_item_overlay');
+	$( 'body' ).on( 'click touch', '.bbpx_item_overlay', function( event ) {
+		console.log('bbpx_item_overlay');
 		var checkbox = $( this ).parent().find( ':checkbox' );
 		var checkbox_id = $( this ).attr( 'rel' );
 
-		wppx_opened = true;
-		wppx_current = checkbox_id;
+		bbpx_opened = true;
+		bbpx_current = checkbox_id;
 
 		if ( event.ctrlKey ) {
 
 			if ( ! checkbox.is( ':checked' ) ) {
-				wppx_selected.push( checkbox_id );
+				bbpx_selected.push( checkbox_id );
 			} else {
-				wppx_selected.splice( wppx_selected.indexOf( checkbox_id ), 1 );
+				bbpx_selected.splice( bbpx_selected.indexOf( checkbox_id ), 1 );
 			}
 
 			checkbox.attr( 'checked', ! checkbox.is( ':checked' ) );
 		} else {
 			if ( ! checkbox.is( ':checked' ) ) {
-				wppx_selected = [checkbox_id];
-				$( '#wppx_area' ).find( 'input:checkbox' ).removeAttr( 'checked' );
+				bbpx_selected = [checkbox_id];
+				$( '#bbpx_area' ).find( 'input:checkbox' ).removeAttr( 'checked' );
 				checkbox.attr( 'checked', ! checkbox.is( ':checked' ) );
 			}
 		}
-		$( '#wppx_title' ).val( wppx_imgs[checkbox_id].img_title );
-		$( '#wppx_caption' ).val( wppx_imgs[checkbox_id].img_caption );
-		$( '#wppx_width' ).val( wppx_imgs[checkbox_id].img_width );
-		$( '#wppx_height' ).val( wppx_imgs[checkbox_id].img_height );
-		$( '#wppx_url' ).val( wppx_imgs[checkbox_id].img_full );
-		$( '#cur-pexels-img' ).attr( 'src', wppx_imgs[checkbox_id].img_full );
-		$( '#wppx_view' ).html( '<img src="' + wppx_imgs[checkbox_id].img_full + '"/>' );
+		$( '#bbpx_title' ).val( bbpx_imgs[checkbox_id].img_title );
+		$( '#bbpx_caption' ).val( bbpx_imgs[checkbox_id].img_caption );
+		$( '#bbpx_width' ).val( bbpx_imgs[checkbox_id].img_width );
+		$( '#bbpx_height' ).val( bbpx_imgs[checkbox_id].img_height );
+		$( '#bbpx_url' ).val( bbpx_imgs[checkbox_id].img_full );
+		$( '#cur-pexels-img' ).attr( 'src', bbpx_imgs[checkbox_id].img_full );
+		$( '#bbpx_view' ).html( '<img src="' + bbpx_imgs[checkbox_id].img_full + '"/>' );
 
 	} );
 
 } );
 
-function wppx_search( page ) {
-	jQuery( '#wppx_search' ).addClass( 'loading' );
-	jQuery( '#wppx_container' ).html( '' );
-	jQuery( '#wppx_page' ).html( '' );
+function bbpx_search( page ) {
+	jQuery( '#bbpx_search' ).addClass( 'loading' );
+	jQuery( '#bbpx_container' ).html( '' );
+	jQuery( '#bbpx_page' ).html( '' );
 	var data = {
-		action: 'wppx_search',
-		key: jQuery( '#wppx_input' ).val(),
+		action: 'bbpx_search',
+		key: jQuery( '#bbpx_input' ).val(),
 		page: page,
-		wppx_nonce: wppx_vars.wppx_nonce
+		bbpx_nonce: bbpx_vars.bbpx_nonce
 	};
 	jQuery.ajax( {
 		method: 'POST',
-		url: wppx_vars.wppx_ajax_url,
+		url: bbpx_vars.bbpx_ajax_url,
 		data: data,
 		success: function( response ) {
-			wppx_show_images( JSON.parse( response ), page );
+			bbpx_show_images( JSON.parse( response ), page );
 		},
 		error: function() {
 			console.log( 'error' );
@@ -75,8 +75,8 @@ function wppx_search( page ) {
 	} );
 }
 
-function wppx_show_images( data, page ) {
-	jQuery( '#wppx_search' ).removeClass( 'loading' );
+function bbpx_show_images( data, page ) {
+	jQuery( '#bbpx_search' ).removeClass( 'loading' );
 	if ( data.photos != 'undefined' ) {
 		for ( var i = 0; i < data.photos.length; i ++ ) {
 			var img_id = '';
@@ -97,10 +97,10 @@ function wppx_show_images( data, page ) {
 			} else {
 				img_title = img_id;
 			}
-			jQuery( '#wppx_container' ).append( '<div class="wppx_item" bg="' + img_thumb + '"><div class="wppx_item_overlay" rel="' + img_id + '"></div><div class="wppx_check"><input type="checkbox" value="' + img_id + '"/></div><span>' +
+			jQuery( '#bbpx_container' ).append( '<div class="bbpx_item" bg="' + img_thumb + '"><div class="bbpx_item_overlay" rel="' + img_id + '"></div><div class="bbpx_check"><input type="checkbox" value="' + img_id + '"/></div><span>' +
 			                                    img_ext + ' | ' + img_width + 'x' + img_height + '</span></div>'
 			);
-			wppx_imgs[img_id] = {
+			bbpx_imgs[img_id] = {
 				img_ext: img_ext,
 				img_site: img_site,
 				img_thumb: img_thumb,
@@ -111,7 +111,7 @@ function wppx_show_images( data, page ) {
 				img_caption: ''
 			};
 		}
-		jQuery( '.wppx_item' ).each( function() {
+		jQuery( '.bbpx_item' ).each( function() {
 			var bg_url = jQuery( this ).attr( 'bg' );
 			jQuery( this ).css( 'background-image', 'url(' + bg_url + ')' );
 		} );
@@ -120,7 +120,7 @@ function wppx_show_images( data, page ) {
 		var pages = 'About ' + data.total_results + ' results / Pages: ';
 		var per_page = 12;
 		if ( data.total_results / per_page > 1 ) {
-			pages += '<select id="wppx_page_select" class="wppx_page_select">';
+			pages += '<select id="bbpx_page_select" class="bbpx_page_select">';
 			for ( var j = 1; j < data.total_results / per_page + 1; j ++ ) {
 				pages += '<option value="' + j + '"';
 				if ( j == page ) {
@@ -130,6 +130,6 @@ function wppx_show_images( data, page ) {
 			}
 			pages += '</select>';
 		}
-		jQuery( '#wppx_page' ).html( pages );
+		jQuery( '#bbpx_page' ).html( pages );
 	}
 }
