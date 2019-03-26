@@ -30,6 +30,24 @@ FLBuilder::register_module('FLPexelsModule', array(
             'general'       => array( // Section
                 'title'         => __('Pexels Photo Fields', 'fl-builder'), // Section Title
                 'fields'        => array( // Section Fields
+                    'pexels_width_option'   => array(
+                        'type'          => 'select',
+                        'label'         => __('Select Width Option', 'fl-builder'),
+                        'default'       => 'full',
+                        'options'       => array(
+                            'full'      => __('Full Width', 'fl-builder'),
+                            'custom'      => __('Custom Size', 'fl-builder'),
+                        ),
+                        // 'preview' => array(
+                        //     'type' => 'callback',
+                        //     'callback' => 'myPreviewCallback',
+                        // ),
+                        'toggle'        => array(
+                            'custom'      => array(
+                                'fields'        => array('pexels_width'),
+                            ),
+                        )
+                    ),
                     'pexels_width'     => array(
                         'type'          => 'text',
                         'label'         => __('Width', 'fl-builder'),
@@ -43,6 +61,24 @@ FLBuilder::register_module('FLPexelsModule', array(
                             'selector'         => '.fl-pexels img',
                             'property'         => 'width',
                             'unit'             => 'px'
+                        )
+                    ),
+                    'pexels_height_option'   => array(
+                        'type'          => 'select',
+                        'label'         => __('Select Height Option', 'fl-builder'),
+                        'default'       => 'auto',
+                        'options'       => array(
+                            'auto'      => __('Auto', 'fl-builder'),
+                            'custom'      => __('Custom Size', 'fl-builder'),
+                        ),
+                        // 'preview' => array(
+                        //     'type' => 'callback',
+                        //     'callback' => 'myPreviewCallback',
+                        // ),
+                        'toggle'        => array(
+                            'custom'      => array(
+                                'fields'        => array('pexels_height'),
+                            ),
                         )
                     ),
                     'pexels_height'     => array(
@@ -64,21 +100,14 @@ FLBuilder::register_module('FLPexelsModule', array(
                         'type'          => 'text',
                         'label'         => __('Alt', 'fl-builder'),
                         'default'       => '',
-                        'class'         => 'my-css-class',
-                        'preview'         => array(
-                            'type'             => 'attribute',
-                            'attribute'        => 'alt',
-                            'selector'         => '.fl-pexels img',
-                        )
+                        'class'         => 'my-css-class'
                     ),
                     'pexels_src' => array(
                         'type'          => 'pexel-picker',
                         'label'         => __('Pexels', 'fl-builder'),
                         'default'       => '',
                         'preview'         => array(
-                            'type'             => 'attribute',
-                            'attribute'        => 'src',
-                            'selector'         => '.fl-pexels img'
+                            'type'             => 'none',
                         )
                     ),
                 )

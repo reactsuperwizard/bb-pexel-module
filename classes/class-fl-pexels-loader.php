@@ -73,10 +73,10 @@ class FL_Pexels_Loader {
 		}
 		$ch   = curl_init();
 		$page = isset( $_POST['page'] ) ? $_POST['page'] : 1;
-		if ( isset( $_POST['key'] ) ) {
+		if ( !empty( $_POST['key'] ) ) {
 			curl_setopt( $ch, CURLOPT_URL, 'http://api.pexels.com/v1/search?query=' . esc_attr( $_POST['key'] ) . '&per_page=12&page=' . $page );
 		} else {
-			curl_setopt( $ch, CURLOPT_URL, 'http://api.pexels.com/v1/popular?per_page=8&page=1' );
+			curl_setopt( $ch, CURLOPT_URL, 'http://api.pexels.com/v1/popular?per_page=12&page=1' );
 		}
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, array(
 			'Authorization: 563492ad6f91700001000001f27710937a744dc14b607b8c6d8d72d5',
